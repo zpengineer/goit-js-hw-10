@@ -25,10 +25,10 @@ ul {
   padding: 0;
 }
 
-img {
+.card-flag {
   display: block;
   max-width: 100%;
-  height: auto;
+  height: 150px;
 }
 
 .card {
@@ -58,4 +58,14 @@ img {
 
 .item-text {
   padding-left: 20px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-box {
+  width: 450px;
 }

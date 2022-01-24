@@ -1,12 +1,16 @@
 {{#each this}}
 
 <div class="card">
-  <img src="{{flags.png}}" alt="{{name.common}}" class="card-flag">
+  <div class="card-header">
+      <img src="{{flags.png}}" alt="{{name.common}}" class="card-flag">
+       <h3 class="title">{{name.common}}</h3>
+  </div>
   <div class="container">
-    <h3 class="title">{{name.common}}</h3>
     <p><b>Capital: </b> {{capital}} </p>
     <p><b>Population: </b> {{population}} </p>
-    <p><b>Languages: </b> {{#each languages}} {{this}} {{/each}}</p>
+    <p><b>Languages: </b> 
+    {{#each languages}}{{#if @index}},{{/if}} {{this}}{{/each}}
+    </p>
   </div>
 </div>
 

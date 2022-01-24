@@ -11,28 +11,31 @@ const refs = {
     info: document.querySelector('.country-info'),
     input: document.querySelector('#search-box')
 }
+let countryName = '';
 
 refs.input.addEventListener('input', debounce(getCountryName, DEBOUNCE_DELAY));
 
 function getCountryName(e) {
 
-    let countryName = e.target.value.trim();
+    countryName = e.target.value.trim();
     clearList();
 
     fetchCountries(countryName)
         .then(data => {
-            if (data.length > 10) {
+            
+            let dataLength = data.length;
+            console.log(dataLength);
 
-                Notify.info("Too many matches found. Please enter a more specific name.");
-
-            } else if (2 < data.length && data.length < 10) {
+            if (1 < dataLength && dataLength < 10) {
 
                 const markupList = countryListTpl(data);
                 isertMarkup(markupList);
 
-            } else if (data.length < 2) {
+            } else if ( dataLength === 1) {
                 const markupInfo = countryInfoTpl(data);
                 isertMarkup(markupInfo);
+            } else {
+                Notify.info("Too many matches found. Please enter a more specific name.");
             }
         })
         .catch(onFetchError);
@@ -45,7 +48,13 @@ function clearList() {
 }
 
 function onFetchError(error) {
-    Notify.failure('Oops, there is no country with that name');
+    console.log(error);
+    if (countryName === '') {
+        Notify.info('Please enter country name');
+    } else {
+        Notify.failure('Oops, there is no country with that name');
+    }
+
 }
 
 function isertMarkup(item) {
